@@ -11,8 +11,7 @@ load_dotenv()
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
-    # Optional: Uncomment below to save logs to a file
-    # filename="chatbot.log",
+    # filename="chatbot.log",  # Optional logging to file
     # filemode="a"
 )
 
@@ -36,7 +35,7 @@ def chat(query: Query):
     }
 
     payload = {
-        "model": "llama3-8b-8192",  # Choose a Groq-supported model
+        "model": "llama3-8b-8192",
         "messages": [
             {"role": "user", "content": query.message}
         ]
@@ -54,12 +53,17 @@ def chat(query: Query):
         reply = data["choices"][0]["message"]["content"]
         exec_time = round(time.time() - start_time, 2)
 
-        logging.info(f"LLM response: {reply}")
-        logging.info(f"Execution time: {exec_time} seconds")
+        usage = data.get("usage", {})
 
         return {
             "response": reply,
-            "execution_time": f"{exec_time} seconds"
+            "execution_time": exec_time,
+            "model_total_time": usage.get("total_time", "N/A"),
+            "token_usage": {
+                "prompt_tokens": usage.get("prompt_tokens", "N/A"),
+                "completion_tokens": usage.get("completion_tokens", "N/A"),
+                "total_tokens": usage.get("total_tokens", "N/A")
+            }
         }
 
     except requests.exceptions.RequestException as e:
