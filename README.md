@@ -6,12 +6,12 @@ This project is a simple chatbot built using an open-source Large Language Model
 
 ## 📌 Project Features
 
-- ✅ API backend using FastAPI to handle user queries
-- ✅ Integration with Groq LLM API
-- ✅ Simple Streamlit UI to interact with the chatbot
-- ✅ Displays conversation history
-- ✅ Shows token usage and execution time
-- ✅ Dockerized for easy deployment
+- API backend using FastAPI to handle user queries
+- Integration with Groq LLM API
+- Simple Streamlit UI to interact with the chatbot
+- Displays conversation history
+- Shows token usage and execution time
+- Dockerized for easy deployment
 
 
 ## 🚀 How to Run Locally
@@ -93,17 +93,3 @@ docker run -p 8000:8000 -p 8501:8501 llm-chatbot
 - Ensuring token usage and time tracking were accurately displayed in the UI.
 - Fixing CORS and connection issues between backend and frontend.
 - Docker networking setup between Streamlit and FastAPI inside the container.
-
----
-
-## 📝 Notes
-
-- **Do not commit your `.env` file** — it contains API keys.
-- Always use `.env.example` to show placeholder values in public repos.
-- This project uses Groq’s free LLM API — no OpenAI key is required.
-
----
-
-## ✍️ Author
-
-- **Habiba Ahmed**
