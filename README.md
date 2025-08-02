@@ -1,95 +1,97 @@
-# 🤖 LLM-Based Chatbot with API & Streamlit UI
+# 🤖 LLM Chatbot – FastAPI + Streamlit
 
-This project is a simple chatbot built using an open-source Large Language Model (LLM) API (Groq), powered by FastAPI for the backend and Streamlit for the frontend UI. It allows users to chat with an AI agent and see token usage, response time, and a complete conversation history.
+This is a simple chatbot I built using the Groq LLM API. It uses **FastAPI** for the backend and **Streamlit** for the frontend. The idea was to create a lightweight, fully working chatbot that shows the full request/response cycle, including token usage and execution time.
+
+It’s meant to be easy to run locally or deploy in a Docker container.
 
 ---
 
-## 📌 Project Features
+## What it Does
 
-- API backend using FastAPI to handle user queries
-- Integration with Groq LLM API
-- Simple Streamlit UI to interact with the chatbot
-- Displays conversation history
-- Shows token usage and execution time
-- Dockerized for easy deployment
+- Takes a user message and sends it to the Groq API (using the `llama3-8b-8192` model)
+- Returns the chatbot's reply along with how long it took
+- Stores the chat history in the UI session
+- Lets you see the conversation and response time in real time
+- All backend logs print to the terminal to help with debugging
 
+---
 
-## 🚀 How to Run Locally
+## How to Run It
 
-### 1. Clone the Repository
+### 1. Clone the repo
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/LLM-Chatbot-Groq-.git
-cd llm_chatbot
+git clone https://github.com/YOUR_USERNAME/llm-chatbot-groq.git
+cd llm-chatbot
 ```
 
----
-
-### 2. Set Up Virtual Environment
+### 2. Set up a virtual environment
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+source .venv/bin/activate        # or .venv\Scripts\activate on Windows
 pip install -r requirements.txt
 ```
 
----
+### 3. Add your API key
 
-### 3. Configure Environment Variables
-
-Create a `.env` file in the `backend/` directory with:
+Create a file named `.env` in the `backend/` folder:
 
 ```
-GROQ_API_KEY=your_actual_groq_api_key
+GROQ_API_KEY=your_groq_api_key_here
 ```
+
+You can get a free key from [Groq](https://console.groq.com/keys).
 
 ---
 
-### 4. Run Backend (FastAPI)
+### 4. Run the backend
 
 ```bash
 cd backend
 uvicorn main:app --reload
 ```
 
-It runs at: [http://localhost:8000](http://localhost:8000)
+This starts the FastAPI server on `http://localhost:8000`
 
 ---
 
-### 5. Run Frontend (Streamlit)
+### 5. Run the frontend (Streamlit)
 
-Open a new terminal:
+In a separate terminal:
 
 ```bash
 cd frontend
 streamlit run app.py
 ```
 
-The UI will be at: [http://localhost:8501](http://localhost:8501)
+Now open `http://localhost:8501` to chat with the bot.
 
 ---
 
-## 🐳 Docker Deployment (Optional)
+## Docker (Optional)
 
-To containerize and run with Docker:
+If you prefer using Docker:
 
 ```bash
 docker build -t llm-chatbot .
 docker run -p 8000:8000 -p 8501:8501 llm-chatbot
 ```
 
----
-
-## 📄 Logging & Error Handling
-
-- The backend includes basic logging to track API errors and runtime issues.
-- Logs are printed to the terminal for debugging.
+Both the API and UI will be live inside the container.
 
 ---
 
-## 🧠 Challenges Faced
+## Logs & Errors
 
-- Handling async requests between FastAPI and the LLM API.
-- Ensuring token usage and time tracking were accurately displayed in the UI.
-- Fixing CORS and connection issues between backend and frontend.
-- Docker networking setup between Streamlit and FastAPI inside the container.
+The backend logs each user message, the model’s response, and how long it took to get a reply. If something fails (e.g., bad API key, network error), it logs it too — so it’s easy to debug.
+
+
+## Tech Stack
+
+- FastAPI (Python backend)
+- Groq LLM API
+- Streamlit (Frontend UI)
+- Docker (for container deployment)
+- Requests + logging
+
